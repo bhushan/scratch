@@ -4,8 +4,12 @@ declare(strict_types=1);
 
 namespace Scratch\Commands;
 
+use Mpdf\Mpdf;
+use Mpdf\MpdfException;
 use Scratch\Scratch;
-use Illuminate\Filesystem\Filesystem;
+use setasign\Fpdi\PdfParser\CrossReference\CrossReferenceException;
+use setasign\Fpdi\PdfParser\PdfParserException;
+use setasign\Fpdi\PdfParser\Type\PdfTypeException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -16,22 +20,19 @@ class SampleCommand extends Command
     /** @var OutputInterface */
     private $output;
 
-    /** @var Filesystem */
-    private $disk;
-
     /**
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
-     * @throws \Mpdf\MpdfException
+     * @throws MpdfException
+     * @throws CrossReferenceException
+     * @throws PdfParserException
+     * @throws PdfTypeException
      */
     public function execute(InputInterface $input, OutputInterface $output): int
     {
-        $this->disk = new Filesystem();
-
         $currentPath = getcwd();
 
         $config = require $currentPath . '/scratch.php';
 
-        $mpdf = new \Mpdf\Mpdf();
+        $mpdf = new Mpdf();
 
         $fileName = Scratch::outputFileName() . '-' . $input->getArgument('theme');
 

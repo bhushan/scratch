@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Scratch\Commands;
 
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Filesystem\Filesystem;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -18,8 +19,7 @@ class InitCommand extends Command
     private $disk;
 
     /**
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
-     * @throws \Mpdf\MpdfException
+     * @throws FileNotFoundException
      */
     public function execute(InputInterface $input, OutputInterface $output): int
     {
@@ -84,4 +84,5 @@ class InitCommand extends Command
             ->setName('init')
             ->setDescription('Initialize a new project in the current directory.');
     }
+
 }
