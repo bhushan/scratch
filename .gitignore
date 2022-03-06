@@ -1,5 +1,7 @@
 bin/
 vendor/
-.php_cs.cache
+*.cache
 .DS_Store
 /.idea
+/.vscode
+composer.lock

@@ -1,6 +1,6 @@
 ## Handling Queues on Deployments
 
->{notice} This is a sample content from [Laravel Queues in Action](https://learn-laravel-queues.com/). A book by [Mohamed Said](https://twitter.com/themsaid) the creator of Ibis.
+> {notice} This is a sample content from [Laravel Queues in Action](https://learn-laravel-queues.com/). A book by [Mohamed Said](https://twitter.com/themsaid) the creator of Scratch.
 
 When you deploy your application with new code or different configurations, workers running on your servers need to be informed about the changes. Since workers are long-living processes, they must be shut down and restarted in order for the changes to be reflected.
 
@@ -42,7 +42,7 @@ If you have the worker processes managed by Supervisor, you can use the `supervi
 supervisorctl restart group-name:*
 ```
 
->{notice} A more detailed [guide](#keeping-the-workers-running) on configuring Supervisor is included.
+> {notice} A more detailed [guide](#keeping-the-workers-running) on configuring Supervisor is included.
 
 ### Restarting Horizon
 
@@ -83,7 +83,7 @@ $FORGE_PHP artisan migrate --force
 sudo supervisorctl start group-name:*
 ```
 
->{warning} Make sure the system user running the deployment can run the `supervisorctl` command as `sudo`.
+> {warning} Make sure the system user running the deployment can run the `supervisorctl` command as `sudo`.
 
 Now, your workers will be signaled by Supervisor to stop after processing any jobs in hand. After all workers exit, the deployment script will continue as normal; migrations will run, and finally, the workers will be started again.
 

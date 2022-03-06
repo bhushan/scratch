@@ -1,6 +1,6 @@
 ## Canceling Abandoned Orders
 
->{notice} This is a sample content from [Laravel Queues in Action](https://learn-laravel-queues.com/). A book by [Mohamed Said](https://twitter.com/themsaid) the creator of Ibis.
+> {notice} This is a sample content from [Laravel Queues in Action](https://learn-laravel-queues.com/). A book by [Mohamed Said](https://twitter.com/themsaid) the creator of Scratch.
 
 When users add items to their shopping cart and start the checkout process, you want to reserve these items for them. However, if a user abandoned an order—they never canceled or checked out—you will want to release the reserved items back into stock so other people can order them.
 
@@ -9,7 +9,6 @@ To do this, we're going to schedule a job once a user starts the checkout proces
 ### Delay Processing a Job
 
 Let's see how such a job can be dispatched from the controller action:
-
 
 ```php
 class CheckoutController
@@ -36,7 +35,7 @@ MonitorPendingOrder::dispatch($order)->delay(
 );
 ```
 
->{warning} Using the SQS driver, you can only delay a job for 15 minutes. If you want to delay jobs for more, you'll need to delay for 15 minutes first and then keep releasing the job back to the queue using `release()`. You should also know that SQS stores the job for only 12 hours after it was enqueued.
+> {warning} Using the SQS driver, you can only delay a job for 15 minutes. If you want to delay jobs for more, you'll need to delay for 15 minutes first and then keep releasing the job back to the queue using `release()`. You should also know that SQS stores the job for only 12 hours after it was enqueued.
 
 Here's a quick look inside the `handle()` method of that job:
 
@@ -52,7 +51,7 @@ public function handle()
 }
 ```
 
-When the job runs—after an hour—, we'll check if the order was canceled or confirmed and just return from the `handle()` method. Using `return` will make the worker consider the job as successful and remove it from the queue. 
+When the job runs—after an hour—, we'll check if the order was canceled or confirmed and just return from the `handle()` method. Using `return` will make the worker consider the job as successful and remove it from the queue.
 
 Finally, we're going to cancel the order if it was still pending.
 
@@ -68,10 +67,9 @@ MonitorPendingOrder::dispatch($order)->delay(
 );
 ```
 
-When the job runs, we want to check if an hour has passed and cancel the order. 
+When the job runs, we want to check if an hour has passed and cancel the order.
 
 If we're still within the hour period, then we'll send an SMS reminder and release the job back to the queue with a 15-minute delay.
-
 
 ```php
 public function handle()
@@ -117,7 +115,7 @@ This job will now run:
 60 minutes after checkout
 ```
 
-If the user confirmed or canceled the order say after 20 minutes, the job will be deleted from the queue when it runs on the attempt at 30 minutes and no SMS will be sent. 
+If the user confirmed or canceled the order say after 20 minutes, the job will be deleted from the queue when it runs on the attempt at 30 minutes and no SMS will be sent.
 
 This is because we have this check at the beginning of the `handle()` method:
 

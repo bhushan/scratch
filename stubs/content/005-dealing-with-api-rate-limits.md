@@ -1,6 +1,6 @@
 ## Dealing With API Rate Limits
 
->{notice} This is a sample content from [Laravel Queues in Action](https://learn-laravel-queues.com/). A book by [Mohamed Said](https://twitter.com/themsaid) the creator of Ibis.
+> {notice} This is a sample content from [Laravel Queues in Action](https://learn-laravel-queues.com/). A book by [Mohamed Said](https://twitter.com/themsaid) the creator of Scratch.
 
 If your application communicates with 3rd party APIs, there's a big chance some rate limiting strategies are applied. Let's see how we may deal with a job that sends an HTTP request to an API that only allows 30 requests per minute:
 
@@ -68,7 +68,7 @@ return $this->release(
 
 That way the job is going to be available as soon as requests are allowed again.
 
->{warning} When dealing with input from external services—including headers—it might be a good idea to validate that input before using it.
+> {warning} When dealing with input from external services—including headers—it might be a good idea to validate that input before using it.
 
 Now we're going to check for that cache key at the beginning of the `handle()` method of our job and release the job back to the queue if the cache key hasn't expired yet:
 
@@ -121,7 +121,7 @@ public function handle()
 }
 ```
 
->{notice} In this part of the challenge we're only handling the 429 request error. In the actual implementation, you'll need to handle other 4xx and 5xx errors as well.
+> {notice} In this part of the challenge we're only handling the 429 request error. In the actual implementation, you'll need to handle other 4xx and 5xx errors as well.
 
 ### Replacing the Tries Limit with Expiration
 
@@ -150,4 +150,3 @@ public $maxExceptions = 3;
 ```
 
 Now the job will be attempted for 12 hours, but will fail immediately if 3 attempts failed due to an exception or a timeout.
-

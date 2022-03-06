@@ -1,6 +1,6 @@
 ## Key Components
 
->{notice} This is a sample content from [Laravel Queues in Action](https://learn-laravel-queues.com/). A book by [Mohamed Said](https://twitter.com/themsaid) the creator of Ibis.
+> {notice} This is a sample content from [Laravel Queues in Action](https://learn-laravel-queues.com/). A book by [Mohamed Said](https://twitter.com/themsaid) the creator of Scratch.
 
 A queue system has 3 main components; queues, messages, and workers.
 
@@ -8,7 +8,7 @@ Let's start by exploring each of these components.
 
 ### Queues
 
->{quote} A queue is a linear data structure in which elements can be added to one end, and can only be removed from the other end.
+> {quote} A queue is a linear data structure in which elements can be added to one end, and can only be removed from the other end.
 
 That's the definition you find in most Computer Science books, and it can be quite confusing.
 
@@ -101,7 +101,7 @@ Queue::push(
 );
 ```
 
->{notice} Laravel uses the term "push" instead of "enqueue", and "pop" instead of "dequeue".
+> {notice} Laravel uses the term "push" instead of "enqueue", and "pop" instead of "dequeue".
 
 When you enqueue an object, the queue manager will serialize it and build a string payload for the message body. When workers dequeue that message, they will be able to extract the object and call the proper method to trigger the action.
 
@@ -125,7 +125,7 @@ class SendInvoice implements ShouldQueue
 
     public function __construct()
     {
-        
+
     }
 
     public function handle()
@@ -137,13 +137,13 @@ class SendInvoice implements ShouldQueue
 
 When a worker dequeues this job, it will execute the `handle()` method. Inside that method, you should put all your business logic.
 
->{notice} Starting Laravel 8.0, you can use `__invoke` instead of `handle` for the method name. 
+> {notice} Starting Laravel 8.0, you can use `__invoke` instead of `handle` for the method name.
 
 ### The Command Bus
 
 Laravel ships with a command bus that can be used to dispatch jobs to the queue. Dispatching through the command bus allows us to use several functionalities that I'm going to show you later.
 
-Throughout this book, we're going to use the command bus to dispatch our jobs instead of the `Queue::push()` method. 
+Throughout this book, we're going to use the command bus to dispatch our jobs instead of the `Queue::push()` method.
 
 Here's an example of using the `dispatch()` helper which uses the command bus under the hood:
 
@@ -169,7 +169,7 @@ You can also use the `dispatch()` static method on the job class:
 SendInvoice::dispatch(1);
 ```
 
->{notice} Arguments passed to the static `dispatch()` method will be transferred to the job instance automatically.
+> {notice} Arguments passed to the static `dispatch()` method will be transferred to the job instance automatically.
 
 ### Starting A Worker
 
