@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace Scratch\Commands;
 
 use Mpdf\Mpdf;
-use Mpdf\MpdfException;
 use Scratch\Scratch;
-use setasign\Fpdi\PdfParser\CrossReference\CrossReferenceException;
+use Mpdf\MpdfException;
+use Symfony\Component\Console\Command\Command;
 use setasign\Fpdi\PdfParser\PdfParserException;
 use setasign\Fpdi\PdfParser\Type\PdfTypeException;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use setasign\Fpdi\PdfParser\CrossReference\CrossReferenceException;
 
 class SampleCommand extends Command
 {

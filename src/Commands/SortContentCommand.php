@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Scratch\Commands;
 
-use Illuminate\Contracts\Filesystem\FileNotFoundException;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Str;
 use Mpdf\MpdfException;
+use Illuminate\Support\Str;
+use Illuminate\Filesystem\Filesystem;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 
 class SortContentCommand extends Command
 {
