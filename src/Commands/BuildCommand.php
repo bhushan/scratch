@@ -4,23 +4,23 @@ declare(strict_types=1);
 
 namespace Scratch\Commands;
 
-use Illuminate\Contracts\Filesystem\FileNotFoundException;
-use Illuminate\Filesystem\Filesystem;
-use League\CommonMark\Block\Element\FencedCode;
-use League\CommonMark\Environment;
-use League\CommonMark\Extension\Table\TableExtension;
-use League\CommonMark\GithubFlavoredMarkdownConverter;
-use Mpdf\Config\ConfigVariables;
-use Mpdf\Config\FontVariables;
 use Mpdf\Mpdf;
-use Mpdf\MpdfException;
-use Scratch\Scratch;
-use Spatie\CommonMarkHighlighter\FencedCodeRenderer;
 use SplFileInfo;
+use Scratch\Scratch;
+use Mpdf\MpdfException;
+use Mpdf\Config\FontVariables;
+use Mpdf\Config\ConfigVariables;
+use League\CommonMark\Environment;
+use Illuminate\Filesystem\Filesystem;
 use Symfony\Component\Console\Command\Command;
+use League\CommonMark\Block\Element\FencedCode;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Spatie\CommonMarkHighlighter\FencedCodeRenderer;
+use League\CommonMark\Extension\Table\TableExtension;
 use Symfony\Component\Console\Output\OutputInterface;
+use League\CommonMark\GithubFlavoredMarkdownConverter;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 
 class BuildCommand extends Command
 {
@@ -69,7 +69,7 @@ class BuildCommand extends Command
     {
         $this->output->writeln('<fg=yellow>==></> Preparing Export Directory ...');
 
-        if (!$this->disk->isDirectory($currentPath . '/export')) {
+        if (! $this->disk->isDirectory($currentPath . '/export')) {
             $this->disk->makeDirectory(
                 $currentPath . '/export',
                 0755,
@@ -172,12 +172,12 @@ HTML
     protected function fonts(array $config, array $fontData): array
     {
         return $fontData + collect($config['fonts'])->mapWithKeys(function ($file, $name) {
-                return [
+            return [
                     $name => [
                         'R' => $file,
                     ],
                 ];
-            })->toArray();
+        })->toArray();
     }
 
     protected function buildHtml(string $path, array $config): string
