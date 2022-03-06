@@ -4,12 +4,12 @@ return [
     /**
      * The book title.
      */
-    'title' => 'Laravel Queues in Action',
+    'title' => 'Example Book',
 
     /**
      * The author name.
      */
-    'author' => 'Mohamed Said',
+    'author' => 'Bhushan Gaikwad',
 
     /**
      * The list of fonts to be used in the different themes.
@@ -36,6 +36,7 @@ return [
     'toc_levels' => [
         'H1' => 0,
         'H2' => 1,
+        'H3' => 2,
     ],
 
     /**
@@ -45,6 +46,10 @@ return [
         'position' => 'position: absolute; left:0; right: 0; top: -.2; bottom: 0;',
         'dimensions' => 'width: 210mm; height: 297mm; margin: 0;',
     ],
+    /**
+     * Make commonmark configurable with Callable
+     */
+    'configure_commonmark' => false,
 
     /**
      * Page ranges to be used with the sample command.
@@ -58,6 +63,5 @@ return [
     /**
      * A notice printed at the final page of a generated sample.
      */
-    'sample_notice' => 'This is a sample from "Laravel Queues in Action" by Mohamed Said. <br>
-                        For more information, <a href="https://www.learn-laravel-queues.com/">Click here</a>.',
+    'sample_notice' => '<p style="text-align: center;">This is a sample page of a generated PDF document.</p>',
 ];

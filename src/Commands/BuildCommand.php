@@ -4,23 +4,23 @@ declare(strict_types=1);
 
 namespace Scratch\Commands;
 
-use Mpdf\Mpdf;
-use SplFileInfo;
-use Scratch\Scratch;
-use Mpdf\MpdfException;
-use Mpdf\Config\FontVariables;
-use Mpdf\Config\ConfigVariables;
-use League\CommonMark\Environment;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Filesystem\Filesystem;
-use Symfony\Component\Console\Command\Command;
 use League\CommonMark\Block\Element\FencedCode;
+use League\CommonMark\Environment;
+use League\CommonMark\Extension\Table\TableExtension;
+use League\CommonMark\GithubFlavoredMarkdownConverter;
+use Mpdf\Config\ConfigVariables;
+use Mpdf\Config\FontVariables;
+use Mpdf\Mpdf;
+use Mpdf\MpdfException;
+use Scratch\Scratch;
+use Spatie\CommonMarkHighlighter\FencedCodeRenderer;
+use SplFileInfo;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Spatie\CommonMarkHighlighter\FencedCodeRenderer;
-use League\CommonMark\Extension\Table\TableExtension;
 use Symfony\Component\Console\Output\OutputInterface;
-use League\CommonMark\GithubFlavoredMarkdownConverter;
-use Illuminate\Contracts\Filesystem\FileNotFoundException;
 
 class BuildCommand extends Command
 {
@@ -44,7 +44,7 @@ class BuildCommand extends Command
         $this->themeName = $input->getArgument('theme');
 
         $currentPath = getcwd();
-        $config = require $currentPath . '/Scratch.php';
+        $config = require $currentPath . '/scratch.php';
 
         $this->ensureExportDirectoryExists(
             $currentPath = getcwd()
@@ -69,7 +69,7 @@ class BuildCommand extends Command
     {
         $this->output->writeln('<fg=yellow>==></> Preparing Export Directory ...');
 
-        if (! $this->disk->isDirectory($currentPath . '/export')) {
+        if (!$this->disk->isDirectory($currentPath . '/export')) {
             $this->disk->makeDirectory(
                 $currentPath . '/export',
                 0755,
@@ -133,7 +133,7 @@ class BuildCommand extends Command
             $pdf->WriteHTML(
                 <<<HTML
 <div style="{$coverPosition}">
-    <img src="assets/cover.jpg" style="{$coverDimensions}"/>
+    <img src="assets/cover.jpg" style="{$coverDimensions}" alt="cover"/>
 </div>
 HTML
             );
@@ -172,12 +172,12 @@ HTML
     protected function fonts(array $config, array $fontData): array
     {
         return $fontData + collect($config['fonts'])->mapWithKeys(function ($file, $name) {
-            return [
+                return [
                     $name => [
                         'R' => $file,
                     ],
                 ];
-        })->toArray();
+            })->toArray();
     }
 
     protected function buildHtml(string $path, array $config): string
@@ -191,7 +191,7 @@ HTML
             'html', 'php', 'js', 'bash', 'json',
         ]));
 
-        if (is_callable($config['configure_commonmark'])) {
+        if (isset($config['configure_commonmark']) && is_callable($config['configure_commonmark'])) {
             call_user_func($config['configure_commonmark'], $environment);
         }
 
@@ -229,6 +229,7 @@ HTML
         }
 
         $html = str_replace('<h2>', '[break]<h2>', $html);
+        $html = str_replace('<h3>', '[break]<h3>', $html);
         $html = str_replace("<blockquote>\n<p>{notice}", "<blockquote class='notice'><p><strong>Notice:</strong>", $html);
         $html = str_replace("<blockquote>\n<p>{warning}", "<blockquote class='warning'><p><strong>Warning:</strong>", $html);
         $html = str_replace("<blockquote>\n<p>{quote}", "<blockquote class='quote'><p>", $html);

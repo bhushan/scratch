@@ -11,10 +11,6 @@ This PHP tool helps you write eBooks in markdown. Run `scratch build` and an eBo
 3. Code syntax highlighting.
 4. Available in 2 themes. Light and dark.
 
-Scratch was used to create [Laravel Queues in Action](https://learn-laravel-queues.com), an eBook I published in August
-
-2020. [Click here](https://learn-laravel-queues.com/laravel-queues-in-action.zip) for the sample.
-
 ## Installation
 
 Make sure you have PHP7.3 or above installed on your system and that your gd extension is enabled in your php.ini file.
@@ -110,7 +106,7 @@ can configure which pages to include in the sample by updating the `/scratch.php
 
 ## Development
 
-This project uses PHP CS Fixer with a code standard defined in `.php_cs`.
+This project uses PHP CS Fixer with a code standard defined in `.php-cs-fixer.php`.
 
 To review code out of style, you can run the fix command as a dry run. Run the composer script like this:
 

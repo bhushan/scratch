@@ -8,6 +8,7 @@ use Illuminate\Filesystem\Filesystem;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 
 class InitCommand extends Command
 {
@@ -18,8 +19,7 @@ class InitCommand extends Command
     private $disk;
 
     /**
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
-     * @throws \Mpdf\MpdfException
+     * @throws FileNotFoundException
      */
     public function execute(InputInterface $input, OutputInterface $output): int
     {
