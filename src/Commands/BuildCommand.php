@@ -151,7 +151,7 @@ HTML
             $this->output->writeln('<fg=red>==></> No assets/cover.jpg File Found. Skipping ...');
         }
 
-        $pdf->SetHTMLFooter('<div id="footer" style="text-align: center">{PAGENO}</div>');
+        $pdf->SetHTMLFooter('<div id="footer" style="text-align: center"><p>' . $config['title'] . ' - ' . $config['author'] . '</p><p>{PAGENO}</p></div>');
 
         $this->output->writeln('<fg=yellow>==></> Building PDF ...');
 
